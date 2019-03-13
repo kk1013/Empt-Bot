@@ -90,7 +90,15 @@ async def on_message(message):
             msg = '{0.author.mention}'.format(message) + '님이 신고하셨습니다.' + '\n 신고내용' + '' + text + ''
             user = await client.get_user_info(221590489835634699)
             await client.send_message(user, msg)
-
+        
+     if message.content.startswith("봇"):
+        await client.send_message(message.channel, "뭐, 병X아")
+    if message.content.startswith("씨발"):
+        await client.send_message(message.channel, "욕하지마잉...미워! ㅠ_ㅠ")
+    if message.content.startswith("병신"):
+        await client.send_message(message.channel, "욕하지마잉...미워! ㅠ_ㅠ")
+    if message.content.startswith("미친"):
+        await client.send_message(message.channel, "욕하지마잉...미워! ㅠ_ㅠ"
 
 access_token = os.environ["BOT_TOKEN"]
 client.run(access_token)

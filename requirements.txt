@@ -1,1 +1,9 @@
 discord.py==0.16.12
+openpyxl==2.6.1
+django_request==1.5.4
+aiohttp == 1.0.5
+async_timeout==3.0.1
+beautifulsoup4==4.7.1
+chardet==3.0.4
+Django==2.1.7
+ex_xmlfile==1.0.1

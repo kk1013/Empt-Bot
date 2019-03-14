@@ -74,22 +74,57 @@ async def on_message(message):
         await client.send_message(message.channel, "``` 6. !프로필```")
         await client.send_message(message.channel, "``` 7. !서버```")
 
-        if message.content.startswith('/신고'):
-            text = ""
+            if "바보" in message.content or "멍청이" in message.content:
+        file = openpyxl.load.workbook("경고.xlsx")
+        sheet = file.active
+        member = discord.utils.get(client.get_all_members(), id="553935362716729356")
+        for i in range(1, 31):
+            if str(sheet["A" + str(i)].value) == str(message.author.id):
+                sheet["B" + str(i)].value == int(sheet["B" + str(i)].value) + 1
+                if int(sheet["B" + str(i)].value) == 3:
+                    await client.ban(member, 1)
+                break
 
-            learn = message.content.split(" ")
+            if str(sheet["A" + str(i)].value) == "-":
+                sheet["A" + str(i)].value = str(message.author.id)
+                sheet["B" + str(i)].value = 1
+                break
+        file.save("경고.xlsx")
+        await client.send_message(message.channel, "경고를 받았습니다. 단어선택에 주의해주세요.")
 
-            vrsize = len(learn)
+    if message.content.startswith("!학습"):
+        file = openpyxl.load_workbook("기억.xlsx")
+        sheet = file.active
+        learn = message.content.split(" ")
+        for i in range (1, 51):
+            if sheet["A" + str(i)].value == "-" or sheet["A" + str(i)].value ==learn[1]:
+                sheet["A" + str(i)].value = learn[1]
+                sheet["B" + str(i)].value = learn[2]
+                await client.send_message(message.channel, "단어가 학습되었습니다.")
+                break
+        file.save("기억.xlsx")
 
-            vrsize = int(vrsize)
+    if message.content.startswith("!기억"):
+        file = openpyxl.load_workbook("기억.xlsx")
+        sheet = file.active
+        memory = message.content.split(" ")
+        for i in range ( 1, 51):
+            if sheet["A" + str(i)].value == memory[1]:
+                await client.send_message(message.channel, sheet["B" + str(i)].value)
+                break
 
-            for i in range(1, vrsize):
-                text = text + learn[i]
+    if message.content.startswith("!기억삭제"):
+        file = openpyxl.load_workbook("기억.xlsx")
+        sheet = file.active
+        memory = message.content.split(" ")
+        for i in range(1, 51):
+            if sheet["A" + str(i)].value == str(memory[1]):
+                sheet["A" + str(i)].value = "-"
+                sheet["B" + str(i)].value = "-"
+                await client.send_message(message.channel, "기억이 삭제 되었습니다.")
+                file.save("기억.xlsx")
+                break
 
-            learn = message.content.split(" ")
-            msg = '{0.author.mention}'.format(message) + '님이 신고하셨습니다.' + '\n 신고내용' + '' + text + ''
-            user = await client.get_user_info(221590489835634699)
-            await client.send_message(user, msg)
             
     if message.content.startswith("봇"):
         await client.send_message(message.channel, "뭐, 병X아")

@@ -367,5 +367,6 @@ async def on_message(message):
         await client.send_message(message.channel, "욕하지마잉...미워! ㅠ_ㅠ")
     if message.content.startswith("미친"):
         await client.send_message(message.channel, "욕하지마잉...미워! ㅠ_ㅠ")
-
-client.run("NTUzOTM1MzYyNzE2NzI5MzU2.D2VbDw.WhTK7C6VMvaTV9rlVQUvUm1O2P4")
+        
+access_token = os.environ["BOT_TOKEN"]
+client.run(access_token)
